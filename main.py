@@ -14,6 +14,7 @@ affected_characters = 0
 # if True, will replace unicode characters
 write_enabled = True
 
+# CHANGE THIS TO YOUR DIRECTORY
 dir = "D:\\AI LLMs SillyTavern\\SillyTavern\\data\\default-user\\characters"
 
 total_files = 0
