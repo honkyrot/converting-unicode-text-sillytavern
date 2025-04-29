@@ -40,7 +40,7 @@ for filename in os.listdir(dir):
     if filename.endswith(".png"):
         a_c = operations.replace_unicode_characters(dir, filename, write_enabled)
 
-        affected_characters += a_c[0]
+        affected_characters += a_c
         affected_files += 1
 
 print("\nTotal affected files: " + str(affected_files))
