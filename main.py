@@ -5,14 +5,11 @@
 import os
 import operations
 
-from PIL import Image
-from PIL.PngImagePlugin import PngInfo
-
 affected_files = 0
 affected_characters = 0
 
 # if True, will replace unicode characters
-write_enabled = True
+write_enabled = False
 
 # CHANGE THIS TO YOUR DIRECTORY
 dir = "D:\\AI LLMs SillyTavern\\SillyTavern\\data\\default-user\\characters"

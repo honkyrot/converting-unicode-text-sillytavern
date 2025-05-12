@@ -7,9 +7,7 @@
 # get directory of file
 import os
 import operations
-
-from PIL import Image
-from PIL.PngImagePlugin import PngInfo
+import time
 
 # if True, will replace unicode characters
 write_enabled = True
@@ -36,11 +34,18 @@ while True:
     selected_file = None
 
     # get files
-    for files in os.listdir(dir):
-        if l_filename in str(files).lower():
-            print(f"[{file_index}]: {files}")
+    for file in os.listdir(dir):
+        if l_filename in str(file).lower():
+            f_dir = os.path.join(dir, file)
+
+            # print file name and date created
+            #file_time = time.ctime(os.path.getctime(f_dir))
+            #print(f"[{file_index}]: {file}, at {file_time}")
+
+            print(f"[{file_index}]: {file}")
+
             file_index += 1
-            index.append(files)
+            index.append(file)
 
     # select file
     if len(index) > 0:

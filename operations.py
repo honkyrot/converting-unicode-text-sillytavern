@@ -5,6 +5,9 @@ import base64
 
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
+from PIL import ImageFile
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 # characters targeted : 
 # U+201C, U+201D, U+2026, U+2019, U+2018
@@ -53,7 +56,12 @@ def replace_unicode_characters(dir, selected_file, write_enabled):
             new_metadata.add_text("chara", encoded_char_data)
             new_metadata.add_text("ccv3", encoded_char_data)
 
-            image.save(os.path.join(dir, selected_file), pnginfo=new_metadata)
+            try:
+                image.save(os.path.join(dir, selected_file), pnginfo=new_metadata)
+            except:
+                print("Failed to write file: " + selected_file)
+
+            print("Finished writing file: " + selected_file)
 
         f.close()
     
