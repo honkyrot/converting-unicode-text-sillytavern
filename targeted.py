@@ -1,6 +1,7 @@
 # python script that replaces some unicode characters to it's ascii equivilent
 # use main.py to replace all
-# this variant is for searching and affecting the specific character
+
+# this variant is for searching and affecting the specific character/file
 
 # files are png images with base64 metadata at the end of the image data, we only intend to modify that part only.
 
@@ -13,7 +14,7 @@ import time
 write_enabled = True
 
 # CHANGE THIS TO YOUR DIRECTORY
-dir = "D:\\AI LLMs SillyTavern\\SillyTavern\\data\\default-user\\characters"
+dir = os.getenv('DIR') + "\\data\\default-user\\characters"
 
 total_files = 0
 for filename in os.listdir(dir):
@@ -48,7 +49,7 @@ while True:
             index.append(file)
 
     # select file
-    if len(index) > 0:
+    if len(index) > 1:
         print("\nFound " + str(len(index)) + " files.")
         cancel = False
 
@@ -69,7 +70,10 @@ while True:
             continue
 
         # open file
-        operations.replace_unicode_characters(dir, selected_file, write_enabled)
-
+        operations.replace_unicode_characters(dir, selected_file, write_enabled, verify=True)
+    elif len(index) == 1:
+        selected_file = index[0]
+        print("Selected file: " + selected_file)
+        operations.replace_unicode_characters(dir, selected_file, write_enabled, verify=True)
     else:
         print("No files found, please refine your search.")

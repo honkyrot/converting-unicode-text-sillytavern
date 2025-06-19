@@ -9,11 +9,13 @@ from PIL import ImageFile
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
+debug = True # displays more data if True
+
 # characters targeted : 
 # U+201C, U+201D, U+2026, U+2019, U+2018
 
 # function to replace unicode characters
-def replace_unicode_characters(dir, selected_file, write_enabled):
+def replace_unicode_characters(dir, selected_file, write_enabled, verify = False):
     affected_characters = 0
 
     with open(os.path.join(dir, selected_file), "r") as f:
@@ -31,12 +33,31 @@ def replace_unicode_characters(dir, selected_file, write_enabled):
 
         # count characters that are to be replaced
         count = 0
+        specific_count = [0, 0, 0, 0, 0]
+        specific_characters = ["\u201c", "\u201d", "\u2026", "\u2019", "\u2018"]
         for char in decoded_char_data:
-            if char == "\u201c" or char == "\u201d" or char == "\u2026" or char == "\u2019" or char == "\u2018":
+            if char in specific_characters:
                 count += 1
                 affected_characters += 1
+                specific_count[specific_characters.index(char)] += 1
+
 
         print("Characters to be replaced: " + str(count))
+
+        if debug:
+            print("Specific characters to be replaced: ")
+            for i in range(len(specific_characters)):
+                print("  " + specific_characters[i] + " : " + str(specific_count[i]))
+
+        if count == 0:
+            print("No characters needs to be replaced.")
+            return 0
+
+        if verify:
+            cont = input("Continue? (y/n): ")
+            if cont.lower() != "y":
+                print("Cancelled.")
+                return 0
 
         # replace unicode characters if wrtie enabled
         if write_enabled:

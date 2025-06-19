@@ -1,6 +1,8 @@
 # python script that replaces some unicode characters to it's ascii equivilent
 # files are png images with base64 metadata at the end of the image data, we only intend to modify that part only.
 
+# this file can read and write to ALL characters
+
 # get directory of file
 import os
 import operations
@@ -8,11 +10,11 @@ import operations
 affected_files = 0
 affected_characters = 0
 
-# if True, will replace unicode characters
+# if True, will replace unicode characters, otherwise reads total char count
 write_enabled = False
 
-# CHANGE THIS TO YOUR DIRECTORY
-dir = "D:\\AI LLMs SillyTavern\\SillyTavern\\data\\default-user\\characters"
+# retrieve dir from env
+dir = os.getenv("DIR") + "\\data\\default-user\\characters"
 
 total_files = 0
 for filename in os.listdir(dir):
